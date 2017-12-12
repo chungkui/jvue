@@ -51,7 +51,6 @@
                                     alert(res.body.description);
                                    /* router.push({name: 'list', params: {}, query: {loginname: this.loginname}})*/
                                 }
-
                             }, function (res) {
                             }
                         )
@@ -87,7 +86,7 @@
                                    placeholder="名称">
                         </div>
                         <div class="form-group">
-                            <label for="key">key</label>
+                            <label for="key">流程key</label>
                             <input type="text" class="form-control" id="key" v-model="key" name="key" placeholder="key">
                         </div>
                         <div class="form-group">
