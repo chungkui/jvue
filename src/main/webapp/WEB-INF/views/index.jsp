@@ -30,6 +30,8 @@
             crossorigin="anonymous"></script>
     <script src="<%=contexPath%>/src/layer/layer.js"></script>
     <script>
+
+        app_path='<%=contexPath%>';
         $(function () {
             Vue.http.options.emulateJSON = true;
             var vue = new Vue({
@@ -41,7 +43,7 @@
                     modeList: [],
                     layer: null
                 }, created: function () {
-                    var inner_url = '/flowDefine/list';
+                    var inner_url = app_path+'/flowDefine/list';
                     this.$http.get(inner_url, {params: {}}).then(function (res) {
                         this.modeList = res.body;
                         /*$("#dbtime").datetimepicker({format: 'yyyy-mm-dd hh:ii:ss', language:  'zh-CN'});*/
@@ -51,7 +53,7 @@
                 }
                 , methods: {
                     submit: function () {
-                        var inner_url = "/flowDefine/create";
+                        var inner_url = app_path+"/flowDefine/create";
                         this.$http.post(inner_url, {
                             name: this.name,
                             key: this.key,
@@ -62,7 +64,7 @@
                                 if (200 === res.body.state) {
 
                                     $("#myModal").modal("hide");
-                                    var myurl = "http://localhost:8081/modeler.html?modelId=" + res.body.bizdata;
+                                    var myurl = app_path+"/modeler.html?modelId=" + res.body.bizdata;
                                     this.edit(myurl)
                                 } else if (500 === res.body.state) {
                                     alert(res.body.description);
@@ -83,7 +85,7 @@
                         this.layer = index;
                         layer.full(this.layer);
                     }, deploy: function (modelid, index) {
-                        var inner_url = "/flowDefine/deploy/" + modelid;
+                        var inner_url = app_path+"/flowDefine/deploy/" + modelid;
                         this.$http.post(inner_url, {}).then(
                             function (res) {
                                 if (200 === res.body.state) {
@@ -95,7 +97,7 @@
                             }, function (res) {
                             })
                     }, deleteModel: function (modelid, index) {
-                        var inner_url = "/flowDefine/delete/" + modelid;
+                        var inner_url = app_path+"/flowDefine/delete/" + modelid;
                         this.$http.post(inner_url, {}).then(
                             function (res) {
 
@@ -109,7 +111,7 @@
                             })
                     }, exportModel: function (modelid, filename,type) {
 
-                        var inner_url = '/flowDefine/export/'+modelid+'/'+type;
+                        var inner_url =app_path+ '/flowDefine/export/'+modelid+'/'+type;
                        /* window.location.href=inner_url;*/
                         var a = document.createElement('a');
                       /* var url =(window.URL || window.webkitURL).createObjectURL(inner_url); */
