@@ -5,11 +5,6 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
-<!--    <context:component-scan
-            base-package="org.activiti.conf,org.activiti.rest.editor">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-    </context:component-scan>-->
-
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
@@ -34,5 +29,21 @@
     <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
     <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!-- 创建sqlsessionfactory -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 指定数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 指定mybatis的配置文件 -->
+<!--
+        <property name="transactionFactory"  value="transactionManager"></property>
+-->
+    </bean>
+    <!-- 映射接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描注解包-->
+        <property name="basePackage" value="org.jvue.upms.mapper"></property>
+        <!--指定session工厂，默认为sqlSessionFactoryBean时可不用做配置-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"></property>
 
+    </bean>
 </beans>

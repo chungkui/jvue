@@ -14,7 +14,7 @@
     <!--解决静态自由访问问题-->
     <mvc:default-servlet-handler />
     <!-- 自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
-    <context:component-scan base-package="org.jvue">
+    <context:component-scan base-package="org.jvue.**">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 

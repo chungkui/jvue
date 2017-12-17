@@ -54,6 +54,20 @@
     <url-pattern>/index</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>upmsServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>classpath:upmsconfig/spring-mvc-upms.xml</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>upmsServlet</servlet-name>
+    <url-pattern>/upms/**</url-pattern>
+  </servlet-mapping>
+
 
   <servlet>
     <servlet-name>ModelRestServlet</servlet-name>
@@ -69,5 +83,12 @@
     <url-pattern>/service/*</url-pattern>
   </servlet-mapping>
 
-
+  <filter>
+    <filter-name>CORS</filter-name>
+    <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>CORS</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
 </web-app>
