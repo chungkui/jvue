@@ -34,9 +34,11 @@ public class FlowDefineController {
     //映射一个action
     @RequestMapping("/list")
     @ResponseBody
-    public  Object list(){
+    public  Object list(HttpServletRequest request,@RequestParam(value = "pageIndex") String pageIndex){
         //输出日志文件
         List<Model> list = repositoryService.createModelQuery().listPage(0,10) ;
+        /*总数量*/
+        Long count= repositoryService.createModelQuery().count();
         //返回一个index.jsp这个视图
         return list;
     }
