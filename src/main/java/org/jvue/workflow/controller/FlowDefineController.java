@@ -3,6 +3,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.github.pagehelper.PageInfo;
 import org.activiti.bpmn.converter.BpmnXMLConverter;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.editor.constants.ModelDataJsonConstants;
@@ -12,6 +13,7 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.Model;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jvue.util.Pager;
 import org.jvue.web.model.WebReponseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +36,18 @@ public class FlowDefineController {
     //映射一个action
     @RequestMapping("/list")
     @ResponseBody
-    public  Object list(HttpServletRequest request,@RequestParam(value = "pageIndex") String pageIndex){
+    public  Object list(HttpServletRequest request,
+                        @RequestParam(value = "pageIndex",defaultValue = "1") int pageIndex,
+                        @RequestParam(value = "pageSize",defaultValue = "10") int pageSize){
+
         //输出日志文件
-        List<Model> list = repositoryService.createModelQuery().listPage(0,10) ;
-        /*总数量*/
+
         Long count= repositoryService.createModelQuery().count();
+        Pager pager = new Pager(pageSize, pageIndex, count);
+        List<Model> list = repositoryService.createModelQuery().listPage(pager.getStartRow(),pageSize) ;
+        pager.setList(list);
         //返回一个index.jsp这个视图
-        return list;
+        return pager;
     }
     private Object returnModel;
     /**
