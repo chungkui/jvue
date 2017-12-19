@@ -1,0 +1,22 @@
+CREATE TABLE `j_menu` (
+  `id` varchar(32) DEFAULT NULL,
+  `pid` varchar(32) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `m_desc` varchar(255) DEFAULT NULL,
+  `isinuser` varchar(255) DEFAULT NULL,
+  `level` int(255) DEFAULT NULL,
+  `routername` varchar(255) DEFAULT NULL,
+  `createtime` date DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `failuretime` date DEFAULT NULL,
+  `isopen` varchar(255) DEFAULT NULL,
+  `icon` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+CREATE TABLE `j_user` (
+  `id` varchar(32) DEFAULT NULL,
+  `user_code` varchar(32) DEFAULT NULL,
+  `user_name` varchar(50) DEFAULT NULL,
+  `user_desc` varchar(100) DEFAULT NULL,
+  `cellphone` varchar(20) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
