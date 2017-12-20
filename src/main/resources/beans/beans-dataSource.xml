@@ -24,4 +24,36 @@
         <property name="minEvictableIdleTimeMillis" value="3600000" />
     </bean>
     <!-- 使用annotation定义事务 -->
+    <!-- 创建sqlsessionfactory -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 指定数据源 -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 指定mybatis的配置文件 -->
+        <!--
+                <property name="transactionFactory"  value="transactionManager"></property>
+        -->
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 细说-->
+                        <value>
+                            params=value1
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+    </bean>
+
+
+
+    <!-- 映射接口 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--扫描注解包-->
+        <property name="basePackage" value="org.jvue.upms.mapper"></property>
+        <!--指定session工厂，默认为sqlSessionFactoryBean时可不用做配置-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactoryBean"></property>
+
+    </bean>
  </beans>
