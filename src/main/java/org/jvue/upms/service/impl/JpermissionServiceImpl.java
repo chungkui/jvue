@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -17,22 +18,33 @@ public class JpermissionServiceImpl implements JpermissionService {
     private JpermissionMapper jpermissionMapper;
 
     public List<Jpermission> list() {
-        return jpermissionMapper.list();
+        List<Jpermission> list = formatTree(jpermissionMapper.list());
+        return list;
     }
 
 
-    private List<Jpermission> getChildrenNodes(Integer id, List<Jpermission> datalist) {
-        List<Jpermission> list = new ArrayList<Jpermission>();
-        for (Jpermission item : datalist) {
-            if (id.equals(item.getPermissionId())) {
-                List<Jpermission> childs = getChildrenNodes(item.getPermissionId(), datalist);
-                if (!childs.isEmpty()) {
-                    item.setSunList(childs);
+    private List<Jpermission> formatTree(List<Jpermission> datalist) {
+        Iterator<Jpermission> iterator = datalist.iterator();
+        List<Jpermission> topJpermission = new ArrayList<Jpermission>();
+        while (iterator.hasNext()) {
+            Jpermission s = iterator.next();
+            //去掉级联关系后需要手动维护这个属性
+            boolean getParent = false;
+            for (Jpermission p : datalist) {
+                if (p.getPermissionId()==s.getPid()) {
+                    List sunList = p.getSunList();
+                    if (sunList == null) {
+                        p.setSunList(new ArrayList());
+                    }
+                    p.getSunList().add(s);
+                    getParent = true;
+                    break;
                 }
-                list.add(item);
             }
+            if (!getParent)
+                topJpermission.add(s);
         }
-        return list;
+        return topJpermission;
     }
 
 }
