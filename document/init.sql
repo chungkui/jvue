@@ -41,3 +41,17 @@ CREATE TABLE `j_unit` (
   `ctime` bigint(20) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`unit_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COMMENT='组织';
+CREATE TABLE `j_permission` (
+  `permission_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `pid` int(10) DEFAULT NULL COMMENT '所属上级',
+  `name` varchar(20) DEFAULT NULL COMMENT '名称',
+  `type` tinyint(4) DEFAULT NULL COMMENT '类型(1:目录,2:菜单,3:按钮)',
+  `permission_value` varchar(50) DEFAULT NULL COMMENT '权限值',
+  `router_uri` varchar(100) DEFAULT NULL COMMENT '路径',
+  `icon` varchar(50) DEFAULT NULL COMMENT '图标',
+  `status` tinyint(4) DEFAULT NULL COMMENT '状态(0:禁止,1:正常)',
+  `ctime` bigint(20) DEFAULT NULL COMMENT '创建时间',
+  `orders` bigint(20) DEFAULT NULL COMMENT '排序',
+  `router_name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`permission_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COMMENT='权限';
