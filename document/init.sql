@@ -55,3 +55,7 @@ CREATE TABLE `j_permission` (
   `router_name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`permission_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=86 DEFAULT CHARSET=utf8mb4 COMMENT='权限';
+
+
+INSERT INTO `JV_role` VALUES ('1', 'super', '超级管理员', '拥有所有权限', '1', '1');
+INSERT INTO `JV_role` VALUES ('2', 'admin', '管理员', '拥有除权限管理系统外的所有权限', '1487471013117', '1487471013117');

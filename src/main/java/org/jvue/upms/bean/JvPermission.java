@@ -1,9 +1,11 @@
 package org.jvue.upms.bean;
 
+import org.springframework.security.core.GrantedAuthority;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class Jpermission implements Serializable {
+public class JvPermission implements Serializable ,GrantedAuthority {
     /**
      * 编号
      *
@@ -84,9 +86,9 @@ public class Jpermission implements Serializable {
      * @mbg.generated
      */
     private Long orders;
-    private List<Jpermission> sunList;
+    private List<JvPermission> sunList;
 
-    public List<Jpermission> getSunList() {
+    public List<JvPermission> getSunList() {
         return sunList;
     }
 
@@ -219,7 +221,7 @@ public class Jpermission implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Jpermission other = (Jpermission) that;
+        JvPermission other = (JvPermission) that;
         return (this.getPermissionId() == null ? other.getPermissionId() == null : this.getPermissionId().equals(other.getPermissionId()))
            /* && (this.getSystemId() == null ? other.getSystemId() == null : this.getSystemId().equals(other.getSystemId()))*/
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
@@ -253,4 +255,8 @@ public class Jpermission implements Serializable {
         return result;
     }
 
+    @Override
+    public String getAuthority() {
+        return permissionValue;
+    }
 }

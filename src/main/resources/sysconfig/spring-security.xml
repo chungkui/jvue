@@ -1,0 +1,48 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/security
+        http://www.springframework.org/schema/security/spring-security.xsd">
+    <http use-expressions="false">
+        <!-- 登录页面不需要控制权限 -->
+        <intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <!-- 访问其他所有页面都需要有USER权限 -->
+        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <!-- 配置登录页面地址login-page、登录失败后的跳转地址authentication-failure-url -->
+        <form-login login-page='/login.jsp' login-processing-url="/login" authentication-failure-url='/login.jsp?error'
+                    default-target-url="/index.jsp"/>
+        <!-- 登出功能 -->
+        <logout/>
+        <csrf disabled="true"/>
+        <custom-filter before="FILTER_SECURITY_INTERCEPTOR"
+                       ref="filterSecurityInterceptor"/>
+    </http>
+    <beans:bean id="filterSecurityInterceptor"
+                class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+        <beans:property name="authenticationManager"
+                        ref="authenticationManager"/>
+        <beans:property name="accessDecisionManager"
+                        ref="accessDecisionManager"/>
+        <beans:property name="securityMetadataSource"
+                        ref="securityMetadataSource"/>
+    </beans:bean>
+    <!--提供授权库-->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+    <!--认证管理器-->
+    <beans:bean id="accessDecisionManager" class="org.jvue.security.JvAccessDecisionManager">
+
+    </beans:bean>
+    <!--提供权限库-->
+    <beans:bean id="securityMetadataSource" class=" org.jvue.security.JvSecurityMetadataSource">
+
+    </beans:bean>
+
+    <beans:bean id="userDetailsService" class="org.jvue.security.JvUserDetailServiceImpl"/>
+    <beans:bean id="passwordEncoder" class="org.jvue.security.JvPasswordEncoderImpl"/>
+</beans:beans>

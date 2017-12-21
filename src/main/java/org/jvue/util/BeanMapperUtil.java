@@ -1,6 +1,6 @@
 package org.jvue.util;
 
-import org.jvue.upms.bean.Jpermission;
+import org.jvue.upms.bean.JvPermission;
 
 import java.lang.reflect.Field;
 
@@ -38,7 +38,7 @@ public class BeanMapperUtil {
         return stringBuilder.toString();
     }
     public static void main(String []adr){
-       BeanMapperUtil. getResultsStr(Jpermission.class);
+       BeanMapperUtil. getResultsStr(JvPermission.class);
 
     }
 
