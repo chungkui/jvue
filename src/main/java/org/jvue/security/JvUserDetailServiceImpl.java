@@ -1,6 +1,7 @@
 package org.jvue.security;
 
 import org.jvue.upms.bean.JvPermission;
+import org.jvue.upms.bean.JvRole;
 import org.jvue.upms.bean.JvUser;
 import org.jvue.upms.mapper.JvPermissionMapper;
 import org.jvue.upms.mapper.JvUserMapper;
@@ -26,7 +27,8 @@ public class JvUserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         JvUser jvUser=jvUserMapper.getUserByUserName(s);
         if(jvUser!=null){
-            List<JvPermission> list=jvPermissionMapper.listPermissionByUser(jvUser.getUserId());
+            List<JvRole> list=jvUserMapper.listRoleByUser(jvUser.getUserId());
+
             jvUser.setAuthorities(list);
         }
 

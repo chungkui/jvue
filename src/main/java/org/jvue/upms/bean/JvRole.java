@@ -1,8 +1,12 @@
 package org.jvue.upms.bean;
 
+import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
+import org.springframework.security.core.GrantedAuthority;
+
 import java.io.Serializable;
 
-public class JvRole implements Serializable {
+public class JvRole  implements Serializable , ConfigAttribute  ,GrantedAuthority {
 
     /**
      * 编号
@@ -143,5 +147,17 @@ public class JvRole implements Serializable {
         result = prime * result + ((getCtime() == null) ? 0 : getCtime().hashCode());
         result = prime * result + ((getOrders() == null) ? 0 : getOrders().hashCode());
         return result;
+    }
+
+
+
+    @Override
+    public String getAttribute() {
+        return name;
+    }
+
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }

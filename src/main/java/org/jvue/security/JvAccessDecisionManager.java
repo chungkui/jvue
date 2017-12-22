@@ -26,14 +26,14 @@ public class JvAccessDecisionManager implements AccessDecisionManager {
             if(ca ==null){
                 continue;
             }
-            String needRole=((SecurityConfig)ca).getAttribute();
+            String needRole=ca.getAttribute();
             for(GrantedAuthority ga:authentication.getAuthorities()){
                 if(needRole.equals(ga.getAuthority())){  //ga is user's role.
                     return;
                 }
             }
         }
-        throw new AccessDeniedException("认证失败");
+        throw new AccessDeniedException("没有权限访问资源");
     }
 
     @Override

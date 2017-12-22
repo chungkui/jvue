@@ -5,11 +5,18 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/security
         http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http pattern="/resources/css/**" security="none"/>
+    <http pattern="/resources/images/**" security="none"/>
+    <http pattern="/resources/js/**" security="none"/>
+    <http pattern="/login.jsp" security="none"/>
+
     <http use-expressions="false">
+
         <!-- 登录页面不需要控制权限 -->
         <intercept-url pattern="/login.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- 访问其他所有页面都需要有USER权限 -->
-        <intercept-url pattern="/**" access="ROLE_USER"/>
+        <!--<intercept-url pattern="/**" access="ROLE_USER"/>-->
         <!-- 配置登录页面地址login-page、登录失败后的跳转地址authentication-failure-url -->
         <form-login login-page='/login.jsp' login-processing-url="/login" authentication-failure-url='/login.jsp?error'
                     default-target-url="/index.jsp"/>
@@ -19,19 +26,22 @@
         <custom-filter before="FILTER_SECURITY_INTERCEPTOR"
                        ref="filterSecurityInterceptor"/>
     </http>
-    <beans:bean id="filterSecurityInterceptor"
-                class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
-        <beans:property name="authenticationManager"
-                        ref="authenticationManager"/>
-        <beans:property name="accessDecisionManager"
-                        ref="accessDecisionManager"/>
-        <beans:property name="securityMetadataSource"
-                        ref="securityMetadataSource"/>
+    <!--不用拦截的地址-->
+
+
+
+
+
+
+    <beans:bean id="filterSecurityInterceptor" class="org.jvue.security.JvFilterSecurityInterceptor">
+        <beans:property name="authenticationManager" ref="authenticationManager"/>
+        <beans:property name="accessDecisionManager" ref="accessDecisionManager"/>
+        <beans:property name="securityMetadataSource" ref="securityMetadataSource"/>
     </beans:bean>
     <!--提供授权库-->
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="userDetailsService">
-            <password-encoder ref="passwordEncoder"/>
+            <!--<password-encoder ref="passwordEncoder"/>-->
         </authentication-provider>
     </authentication-manager>
     <!--认证管理器-->
@@ -45,4 +55,23 @@
 
     <beans:bean id="userDetailsService" class="org.jvue.security.JvUserDetailServiceImpl"/>
     <beans:bean id="passwordEncoder" class="org.jvue.security.JvPasswordEncoderImpl"/>
+
+    <!--控制注解类型的-->
+
+    <!--基于url不好实现通过方法控制-->
+
+    <!--
+        <beans:bean id="handlerMapping" name="handlerMapping" class="org.jvue.security.JvDefaultAnnotationHandlerMapping">
+             <beans:property name="interceptors">
+                <beans:list>
+
+                </beans:list>
+            </beans:property>
+        </beans:bean>-->
+    <!--<beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <headers>
+            <header ref="handlerMapping"></header>
+        </headers>
+
+    </beans:bean>-->
 </beans:beans>

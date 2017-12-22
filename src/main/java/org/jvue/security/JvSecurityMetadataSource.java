@@ -1,43 +1,44 @@
 package org.jvue.security;
 
+import org.jvue.upms.bean.JvRole;
+import org.jvue.upms.mapper.JvPermissionMapper;
+import org.jvue.upms.mapper.JvRoleMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 public class JvSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
+    @Autowired
+    private JvRoleMapper jvRoleMapper;
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
-        // guess object is a URL.
+
         if ((o == null) || !this.supports(o.getClass())) {
             throw new IllegalArgumentException("对不起,目标对象不是类型");
         }
         System.out.println("object的类型为:" + o.getClass());
         FilterInvocation filterInvocation = (FilterInvocation) o;
-        Map<String,String[]> parameterMap=filterInvocation.getRequest().getParameterMap();
-        /*String routerPath=parameterMap.get("routerPath")[0];
-        String optNmae=parameterMap.get("optNmae")[0];*/
-        /*如果为空就是list操作*/
-        /*每个请求都要添加这两个参数，通过属于哪个页面的哪个方法来决定权限*/
-        /*想了想还是要根据最终ajax请求的url来进行控制，现在要解决的问题是router和url绑定的问题*/
-        String requestUrl = filterInvocation.getRequestUrl();
-        System.out.println("访问的URL地址为(包括参数):" + requestUrl);
-        requestUrl = filterInvocation.getRequest().getServletPath();
-        System.out.println("访问的URL地址为:" + requestUrl);
-        /*根据rul获取权限*/
-
-
-       /* OptDesc od = Struts2UrlParser.parseUrl(sUrl, fi.getRequest());
-        if("T".equals(CodeRepositoryUtil.getValue("SYSPARAM","ACTIONRUNLOG")))
-            optRecDao.recRunTime( od.getActionUrl(),od.getMethod());
-        Map<OptDesc,RdbmsEntryHoder> list = this.getRdbmsEntryHolderList();
-        if (list == null)
-            return null;
-        RdbmsEntryHoder entryHolder = list.get(od);
-        if(entryHolder!=null)
-            return entryHolder.getCad();*/
+        HttpServletRequest request=filterInvocation.getRequest();
+        String permissionId=request.getParameter("permissionId");
+        try {
+            if(permissionId!=null){
+                List rolelist= jvRoleMapper.listRoleByPermissionId(Integer.parseInt(permissionId));
+                return rolelist;
+            }else{
+             List list=   new ArrayList<JvRole>();
+               JvRole jvRole= new JvRole();
+                jvRole.setName("就你还想进来？可能吗");
+                list.add(jvRole ) ;
+                return list;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
