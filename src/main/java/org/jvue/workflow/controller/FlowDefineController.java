@@ -14,6 +14,7 @@ import org.activiti.engine.repository.Model;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jvue.util.Pager;
+import org.jvue.web.model.ResponseBodyTemplate;
 import org.jvue.web.model.WebReponseModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ import java.io.ByteArrayInputStream;
 import java.util.List;
 @Controller
 @RequestMapping("/flowDefine")
-public class FlowDefineController {
+public class FlowDefineController extends ResponseBodyTemplate{
     private static final Logger logger = LoggerFactory.getLogger(FlowDefineController.class);
     @Autowired
     RepositoryService repositoryService;
@@ -47,7 +48,8 @@ public class FlowDefineController {
         List<Model> list = repositoryService.createModelQuery().listPage(pager.getStartRow(),pageSize) ;
         pager.setList(list);
         //返回一个index.jsp这个视图
-        return pager;
+        create200Template(pager,"加载成功");
+        return create200Template(pager,"加载成功");
     }
     private Object returnModel;
     /**
