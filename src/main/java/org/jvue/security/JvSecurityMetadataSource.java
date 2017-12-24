@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,6 +16,7 @@ import java.util.List;
 public class JvSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
     @Autowired
     private JvRoleMapper jvRoleMapper;
+
     @Override
     public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
 
@@ -23,17 +25,21 @@ public class JvSecurityMetadataSource implements FilterInvocationSecurityMetadat
         }
         System.out.println("object的类型为:" + o.getClass());
         FilterInvocation filterInvocation = (FilterInvocation) o;
-        HttpServletRequest request=filterInvocation.getRequest();
-        String permissionId=request.getParameter("permissionId");
+        HttpServletRequest request = filterInvocation.getRequest();
+        String permissionId = request.getParameter("permissionId");
+        /*本系统所有权限通过permissionid来进行控制权限，白名单的url存在配置文件中*/
+        boolean iswhite = JvUrlPermissionUtil.isWhite(request.getRequestURI());
         try {
-            if(permissionId!=null){
-                List rolelist= jvRoleMapper.listRoleByPermissionId(Integer.parseInt(permissionId));
+            if (iswhite) {
+                return null;
+            } else if (permissionId != null) {
+                List rolelist = jvRoleMapper.listRoleByPermissionId(Integer.parseInt(permissionId));
                 return rolelist;
-            }else{
-             List list=   new ArrayList<JvRole>();
-               JvRole jvRole= new JvRole();
-                jvRole.setName("就你还想进来？可能吗");
-                list.add(jvRole ) ;
+            } else {
+                List list = new ArrayList<JvRole>();
+                JvRole jvRole = new JvRole();
+                jvRole.setName("BUSHIBAIMINGDANXIUXIANGJINLAI");
+                list.add(jvRole);
                 return list;
             }
         } catch (Exception e) {
@@ -49,6 +55,7 @@ public class JvSecurityMetadataSource implements FilterInvocationSecurityMetadat
 
     /**
      * 验证用于封装认证携带信息验证的类
+     *
      * @param aClass
      * @return
      */

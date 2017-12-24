@@ -11,11 +11,14 @@
     <http pattern="/resources/js/**" security="none"/>
     <http pattern="/login.jsp" security="none"/>
     <http pattern="/upms/login/dispatch" security="none"/>
-    <http pattern="/upms/login/success" security="none"/>
+  <!--  <http pattern="/upms/login/success" security="none"/>-->
+    <!--<http pattern="/upms/login/userinfo" security="none"/>-->
+
     <http use-expressions="false">
 
         <!-- 登录入口不需要控制权限 -->
         <intercept-url pattern="/upms/login/dispatch" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+        <intercept-url pattern="/upms/login/userinfo" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
         <!-- 访问其他所有页面都需要有USER权限 -->
         <!--<intercept-url pattern="/**" access="ROLE_USER"/>-->
         <!-- 配置登录页面地址login-page、登录失败后的跳转地址authentication-failure-url -->
@@ -34,6 +37,9 @@
         <csrf disabled="true"/>
         <custom-filter before="FILTER_SECURITY_INTERCEPTOR"
                        ref="filterSecurityInterceptor"/>
+
+        <!--开启自动登陆功能有待研究-->
+        <remember-me key="rememberMe"></remember-me>
     </http>
     <!--不用拦截的地址-->
 
