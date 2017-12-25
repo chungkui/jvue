@@ -42,6 +42,5 @@ public class LoginController extends ResponseBodyTemplate {
         JSONObject data=new JSONObject();
          JvUser jvUser=(JvUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return create200Template(jvUser,"获取成功");
-
     }
 }
