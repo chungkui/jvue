@@ -1,13 +1,11 @@
 package org.jvue.security;
 
 import org.jvue.upms.bean.JvRole;
-import org.jvue.upms.mapper.JvPermissionMapper;
 import org.jvue.upms.mapper.JvRoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collection;
