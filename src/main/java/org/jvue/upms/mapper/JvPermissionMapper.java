@@ -30,7 +30,7 @@ public interface JvPermissionMapper {
             @Result(property = "status", column = "status"),
             @Result(property = "ctime", column = "ctime"),
             @Result(property = "orders", column = "orders"),
-
+            @Result(property = "componentPath", column = "component_path"),
             @Result(property = "serialVersionUID", column = "serial_version_u_i_d"),
     })
     @SelectProvider(type = JvPermissionSqlProvider.class, method = "selectBean")
@@ -53,6 +53,7 @@ public interface JvPermissionMapper {
             @Result(property = "status", column = "status"),
             @Result(property = "ctime", column = "ctime"),
             @Result(property = "orders", column = "orders"),
+            @Result(property = "componentPath", column = "component_path"),
 
             @Result(property = "serialVersionUID", column = "serial_version_u_i_d"),
     })
@@ -77,6 +78,7 @@ public interface JvPermissionMapper {
             @Result(property = "status", column = "status"),
             @Result(property = "ctime", column = "ctime"),
             @Result(property = "orders", column = "orders"),
+            @Result(property = "componentPath", column = "component_path"),
             @Result(property = "serialVersionUID", column = "serial_version_u_i_d"),
     })
     @SelectProvider(type = JvPermissionSqlProvider.class, method = "listPermissionByUserSQL")

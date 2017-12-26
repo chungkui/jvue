@@ -59,6 +59,7 @@ public class JvPermission implements Serializable ,GrantedAuthority {
      */
     private String routerUri;
     private String  routerName;
+    private String componentPath;
     /**
      * 图标
      *
@@ -106,7 +107,13 @@ public class JvPermission implements Serializable ,GrantedAuthority {
         this.permissionId = permissionId;
     }
 
+    public String getComponentPath() {
+        return componentPath;
+    }
 
+    public void setComponentPath(String componentPath) {
+        this.componentPath = componentPath;
+    }
 
     public Integer getPid() {
         return pid;

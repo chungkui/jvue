@@ -24,5 +24,9 @@ public interface JvUserMapper {
     @Select("select t.* from jv_user_role w join jv_role t on w.role_id=t.role_id  where user_id=#{userId} ")
     public List<JvRole> listRoleByUser(@Param("userId") Integer userId);
 
+    @Select("select * from jv_user")
+    public List<JvUser>list();
+
+
 
 }
