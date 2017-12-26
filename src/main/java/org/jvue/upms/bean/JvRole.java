@@ -1,7 +1,6 @@
 package org.jvue.upms.bean;
 
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;

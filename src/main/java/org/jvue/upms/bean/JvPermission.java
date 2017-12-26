@@ -89,6 +89,16 @@ public class JvPermission implements Serializable ,GrantedAuthority {
     private Long orders;
     private List<JvPermission> sunList;
 
+    private List<JvRole>roleList;
+
+    public List<JvRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<JvRole> roleList) {
+        this.roleList = roleList;
+    }
+
     public List<JvPermission> getSunList() {
         return sunList;
     }

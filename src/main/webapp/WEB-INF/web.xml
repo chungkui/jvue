@@ -7,7 +7,7 @@
     <!--welcome pages-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath*:/beans/*.xml,classpath:sysconfig/spring-security.xml</param-value>
+        <param-value>classpath:upmsconfig/spring-mvc-upms.xml,classpath*:/beans/*.xml,classpath:sysconfig/spring-security.xml</param-value>
     </context-param>
     <!--Spring的ApplicationContext 载入 -->
     <listener>
