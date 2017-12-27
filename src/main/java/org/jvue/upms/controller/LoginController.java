@@ -21,26 +21,29 @@ public class LoginController extends ResponseBodyTemplate {
     @RequestMapping("/dispatch")
     @ResponseBody
     public Object dispatch(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        return create300Template(null,"您需要登陆");
+        return create300Template(null, "您需要登陆");
     }
+
     @RequestMapping("/success")
     @ResponseBody
     public Object success(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
 
-        JSONObject data=new JSONObject();
-        data.put("JSESSIONID",httpServletRequest.getSession().getId());
-        JvUser jvUser=(JvUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        data.put("userinfo",jvUser);
-        return create200Template(data,"登陆成功");
+        JSONObject data = new JSONObject();
+        data.put("JSESSIONID", httpServletRequest.getSession().getId());
+        JvUser jvUser = (JvUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        data.put("userinfo", jvUser);
+        return create200Template(data, "登陆成功");
 
     }
 
     @RequestMapping("/userinfo")
     @ResponseBody
     public Object userinfo(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-
-        JSONObject data=new JSONObject();
-         JvUser jvUser=(JvUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return create200Template(jvUser,"获取成功");
+        JSONObject data = new JSONObject();
+        JvUser jvUser = null;
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal()instanceof JvUser) {
+            jvUser = (JvUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        };
+        return create200Template(jvUser, "获取成功");
     }
 }

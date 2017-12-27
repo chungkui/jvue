@@ -46,8 +46,13 @@ public class JvPermissionServiceImpl implements JvPermissionService {
         Map<RequestMatcher, Collection<ConfigAttribute>> requestMap = new HashMap<>();
         if (list != null){
             for (JvPermission jvPermission : list) {
-                List <ConfigAttribute>roleList=(List <ConfigAttribute>)(Object)jvPermission.getRoleList();
-                map.put(jvPermission.getRouterUri(), roleList);
+                Set <ConfigAttribute>roleSet=(Set <ConfigAttribute>)(Object)jvPermission.getRoleSet();
+                /*可能存在一个类型的权限配置了多个菜单，*/
+                if(map.get(jvPermission.getPermissionValue())!=null){
+                    map.get(jvPermission.getPermissionValue()).addAll(roleSet);
+                }else{
+                    map.put(jvPermission.getPermissionValue(), roleSet);
+                }
             }
             for(String rule:map.keySet()){
                 if(rule==null||rule.equals("")){

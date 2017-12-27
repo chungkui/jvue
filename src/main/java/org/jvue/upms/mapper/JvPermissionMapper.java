@@ -5,6 +5,7 @@ import org.jvue.upms.bean.JvPermission;
 import org.jvue.upms.bean.JvRole;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper
 public interface JvPermissionMapper {
@@ -115,7 +116,7 @@ public interface JvPermissionMapper {
             @Result(property = "orders", column = "orders"),
             @Result(property = "componentPath", column = "component_path"),
             @Result(property = "serialVersionUID", column = "serial_version_u_i_d"),
-            @Result(property = "roleList", javaType = List.class, column = "PERMISSION_ID",
+            @Result(property = "roleSet", javaType = Set.class, column = "PERMISSION_ID",
                     many = @Many(select = "org.jvue.upms.mapper.JvPermissionMapper.selectRoles"))
     })
     @Select("select * from jv_permission")

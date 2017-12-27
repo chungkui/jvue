@@ -4,6 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 public class JvPermission implements Serializable ,GrantedAuthority {
     /**
@@ -89,14 +90,14 @@ public class JvPermission implements Serializable ,GrantedAuthority {
     private Long orders;
     private List<JvPermission> sunList;
 
-    private List<JvRole>roleList;
+    private Set<JvRole> roleSet;
 
-    public List<JvRole> getRoleList() {
-        return roleList;
+    public Set<JvRole> getRoleSet() {
+        return roleSet;
     }
 
-    public void setRoleList(List<JvRole> roleList) {
-        this.roleList = roleList;
+    public void setRoleSet(Set<JvRole> roleSet) {
+        this.roleSet = roleSet;
     }
 
     public List<JvPermission> getSunList() {
