@@ -8,8 +8,19 @@ import java.util.List;
 
 @Mapper
 public interface JvUserMapper {
+    /**
+     * 根据userid查询用户信息
+     * @param id
+     * @return
+     */
     @Select("select * from jv_user where id=#{id}")
     public JvUser getUserById(Integer id);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username
+     * @return
+     */
     @Results(@Result(property = "userId",column = "user_id"))
     @Select("select * from jv_user where username=#{username}")
     public JvUser getUserByUserName(String username);
@@ -24,7 +35,15 @@ public interface JvUserMapper {
     @Select("select t.* from jv_user_role w join jv_role t on w.role_id=t.role_id  where user_id=#{userId} ")
     public List<JvRole> listRoleByUser(@Param("userId") Integer userId);
 
+
+    /**
+     * 获取用户列表
+     * @return
+     */
     @Select("select * from jv_user")
+    @Results(
+            @Result(property = "userId" ,column = "user_id")
+    )
     public List<JvUser>list();
 
 

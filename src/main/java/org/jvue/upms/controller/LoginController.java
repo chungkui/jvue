@@ -3,6 +3,7 @@ package org.jvue.upms.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.sun.deploy.net.HttpUtils;
+import org.jvue.base.controller.BaseController;
 import org.jvue.upms.bean.JvUser;
 import org.jvue.web.model.ResponseBodyTemplate;
 import org.jvue.web.model.WebReponseModel;
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("/upms/login")
-public class LoginController extends ResponseBodyTemplate {
+public class LoginController extends BaseController {
     @RequestMapping("/dispatch")
     @ResponseBody
     public Object dispatch(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
