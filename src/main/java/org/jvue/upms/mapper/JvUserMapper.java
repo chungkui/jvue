@@ -46,6 +46,14 @@ public interface JvUserMapper {
     )
     public List<JvUser>list();
 
+    /**
+     * 新增用户
+     */
+    @SelectKey(statement = "select last_insert_id()", keyProperty = "jvUser.userId", before = false, resultType = int.class)
+    @Insert("INSERT INTO jv_user(user_id,username,password,realname,avatar,phone,email,sex,locked,ctime) " +
+            "VALUES(#{jvUser.userId},#{jvUser.username},#{jvUser.password},#{jvUser.realname},#{jvUser.avatar}," +
+            "#{jvUser.phone},#{jvUser.email},#{jvUser.sex},#{jvUser.locked},SYSDATE())")
+    public boolean create(@Param("jvUser")JvUser jvUser);
 
 
 }
