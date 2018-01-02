@@ -19,7 +19,7 @@ public class JvUserServiceImpl implements JvUserService {
     @Override
     public PageInfo <JvUser> list(JvUser jvUser, Integer currentPage, Integer pageSize) {
         PageHelper.startPage(currentPage, pageSize);
-        List<JvUser> list = jvUserMapper.list();
+        List<JvUser> list = jvUserMapper.list(jvUser);
         PageInfo <JvUser>pageInfo=new <JvUser>PageInfo(list);
         return pageInfo;
     }

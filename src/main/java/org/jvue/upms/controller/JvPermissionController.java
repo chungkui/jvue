@@ -22,6 +22,12 @@ public class JvPermissionController extends BaseController {
        JvUser jvUser = getLoginUser();
         return jvPermissionService.listPermissionByUser(jvUser.getUserId());
     }
+    @RequestMapping("/listAll")
+    @ResponseBody
+    public Object listAll(){
+       /* JvUser jvUser = getLoginUser();*/
+        return jvPermissionService.list();
+    }
     @RequestMapping("/delete")
     @ResponseBody
     public Object delete(){

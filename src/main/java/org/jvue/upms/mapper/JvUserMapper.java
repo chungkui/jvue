@@ -40,11 +40,11 @@ public interface JvUserMapper {
      * 获取用户列表
      * @return
      */
-    @Select("select * from jv_user")
     @Results(
             @Result(property = "userId" ,column = "user_id")
     )
-    public List<JvUser>list();
+    @SelectProvider(type = JvUserMapperProvider.class,method = "listSql")
+    public List<JvUser>list(JvUser jvUser);
 
     /**
      * 新增用户

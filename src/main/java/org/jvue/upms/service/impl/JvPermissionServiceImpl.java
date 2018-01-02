@@ -23,8 +23,8 @@ public class JvPermissionServiceImpl implements JvPermissionService {
 
     @Override
     public List<JvPermission> list() {
-        List<JvPermission> list = formatTree(jvPermissionMapper.list());
-        return list;
+       /* List<JvPermission> list = formatTree(jvPermissionMapper.list());*/
+        return jvPermissionMapper.list();
     }
 
     @Override
@@ -75,11 +75,11 @@ public class JvPermissionServiceImpl implements JvPermissionService {
             boolean getParent = false;
             for (JvPermission p : datalist) {
                 if (p.getPermissionId().equals(s.getPid())) {
-                    List sunList = p.getSunList();
+                    List sunList = p.getChildren();
                     if (sunList == null) {
-                        p.setSunList(new ArrayList());
+                        p.setChildren(new ArrayList());
                     }
-                    p.getSunList().add(s);
+                    p.getChildren().add(s);
                     getParent = true;
                     break;
                 }

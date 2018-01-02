@@ -23,8 +23,9 @@ public class JvUserController extends BaseController {
     @RequestMapping("/list")
     @ResponseBody
     public Object list(@RequestParam(value = "pageIndex",defaultValue = "1") int pageIndex,
-                       @RequestParam(value = "pageSize",defaultValue = "8") int pageSize){
-        PageInfo<JvUser> pageInfo=jvUserService.list(null,pageIndex,pageSize);
+                       @RequestParam(value = "pageSize",defaultValue = "8") int pageSize,
+                      JvUser jvUser){
+        PageInfo<JvUser> pageInfo=jvUserService.list(jvUser,pageIndex,pageSize);
         return  create200Template(pageInfo,"成功");
     }
 

@@ -88,7 +88,7 @@ public class JvPermission implements Serializable ,GrantedAuthority {
      * @mbg.generated
      */
     private Long orders;
-    private List<JvPermission> sunList;
+    private List<JvPermission> children;
 
     private Set<JvRole> roleSet;
 
@@ -100,12 +100,12 @@ public class JvPermission implements Serializable ,GrantedAuthority {
         this.roleSet = roleSet;
     }
 
-    public List<JvPermission> getSunList() {
-        return sunList;
+    public void setChildren(List<JvPermission> children) {
+        this.children = children;
     }
 
-    public void setSunList(List sunList) {
-        this.sunList = sunList;
+    public List<JvPermission> getChildren() {
+        return children;
     }
 
     private static final long serialVersionUID = 1L;
