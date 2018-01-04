@@ -85,16 +85,16 @@ public interface JvPermissionMapper {
     @SelectProvider(type = JvPermissionSqlProvider.class, method = "listPermissionByUserSQL")
     public List<JvPermission>listPermissionByUser(@Param("userId") Integer userId);
 
-    @Select("select * from jv_Permission where pid= #{xxx}")
+    @Select("select * from jv_permission where pid= #{xxx}")
     public List<JvPermission> listByPid(@Param("permission_Id") String xxx);
 
-    @Delete("delete from jv_Permission where id=#{id}")
+    @Delete("delete from jv_permission where id=#{id}")
     public void delete(String id);
 
-    @Select("select * from jv_Permission where id=#{id}")
+    @Select("select * from jv_permission where id=#{id}")
     public JvPermission getObjectById(String id);
 
-    @Update("update jv_Permission set ")
+    @Update("update jv_permission set ")
     public void update(JvPermission menu);
 
 

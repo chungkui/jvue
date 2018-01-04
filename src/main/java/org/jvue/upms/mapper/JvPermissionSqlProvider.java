@@ -4,7 +4,7 @@ import org.apache.ibatis.annotations.Param;
 
 public class JvPermissionSqlProvider {
     public String selectBean() {
-        return "select * from jv_Permission";
+        return "select * from jv_permission";
     }
 
     public String listPermissionByRoleSQL(@Param("roleId")Integer roleId) {
